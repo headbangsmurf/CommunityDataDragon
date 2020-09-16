@@ -1,4 +1,3 @@
-import json
 import utils
 import os
 import download
@@ -27,15 +26,16 @@ def create_all_images(championfull, items, summoners):
     create_versioned_profile_icons()
     create_versioned_spell_icons(championfull, summoners)
     os.system(
-        f"dragonspriter /var/www/ddragon.bangingheads.net/cdn/{settings.patch['json']}/")
+        f"./dragonspriter cdn/{settings.patch['json']}/")
 
-    if os.path.exists(f"/var/www/ddragon.bangingheads.net/cdn/{settings.patch['json']}/img/sprite"):
+    if os.path.exists(f"cdn/{settings.patch['json']}/img/sprite"):
         shutil.rmtree(
-            f"/var/www/ddragon.bangingheads.net/cdn/{settings.patch['json']}/img/sprite")
+            f"cdn/{settings.patch['json']}/img/sprite")
     os.makedirs(
-        f"/var/www/ddragon.bangingheads.net/cdn/{settings.patch['json']}/img/sprite")
+        f"cdn/{settings.patch['json']}/img/sprite")
     os.system(
-        f"mv /var/www/ddragon.bangingheads.net/img/sprite/* /var/www/ddragon.bangingheads.net/cdn/{settings.patch['json']}/img/sprite/")
+        f"mv img/sprite/* cdn/{settings.patch['json']}/img/sprite/")
+    shutil.rmtree(f"img")
 
 
 def create_unversioned_champion_splash(championfull):
@@ -54,6 +54,7 @@ def create_unversioned_champion_splash(championfull):
             )
             with open(f"cdn/img/champion/splash/{champion}_{championfull['data'][champion]['skins'][i]['num']}.jpg", "wb") as f:
                 f.write(image)
+    return
 
 
 def create_unversioned_champion_loading(championfull):
@@ -74,6 +75,7 @@ def create_unversioned_champion_loading(championfull):
             with open(f"cdn/img/champion/loading/{champion}_{championfull['data'][champion]['skins'][i]['num']}.jpg", "wb") as f:
                 f.write(image)
             i += 1
+    return
 
 
 def create_unversioned_champion_tile(championfull):
@@ -94,6 +96,7 @@ def create_unversioned_champion_tile(championfull):
             with open(f"cdn/img/champion/tiles/{champion}_{championfull['data'][champion]['skins'][i]['num']}.jpg", "wb") as f:
                 f.write(image)
             i += 1
+    return
 
 
 def create_unversioned_perk_images():
@@ -107,6 +110,7 @@ def create_unversioned_perk_images():
         path = get_path_from_string(x['iconPath'])
         with open(f"cdn/img{path}/{name}", "wb") as f:
             f.write(image)
+    return
 
 
 def create_unversioned_perk_styles():
@@ -120,6 +124,7 @@ def create_unversioned_perk_styles():
         name = get_image_name_from_path(x['iconPath'])
         with open(f"cdn/img{path}/{name}", "wb") as f:
             f.write(image)
+    return
 
 
 def create_versioned_champion_icons():
@@ -156,6 +161,7 @@ def create_versioned_map_icons():
         image = download.download_versioned_cdragon_map_icon(x['id'])
         with open(f"cdn/{settings.patch['json']}/img/map/map{x['id']}.png", "wb") as f:
             f.write(image)
+    return
 
 
 def create_versioned_mission_assets():
@@ -171,6 +177,7 @@ def create_versioned_mission_assets():
                 f"cdn/{settings.patch['json']}/img/mission{get_path_from_string(x['path'])}")
         with open(f"cdn/{settings.patch['json']}/img/mission{get_path_from_string(x['path'])}/{x['internalName']}.png", "wb") as f:
             f.write(image)
+    return
 
 
 def create_versioned_champion_passives():
@@ -184,6 +191,7 @@ def create_versioned_champion_passives():
         image = download.download_image(url)
         with open(f"cdn/{settings.patch['json']}/img/passive/{get_image_name_from_path(cdragon_champion['passive']['abilityIconPath'])}", "wb") as f:
             f.write(image)
+    return
 
 
 def create_versioned_profile_icons():
@@ -200,6 +208,7 @@ def create_versioned_profile_icons():
         im.save(f"cdn/{settings.patch['json']}/img/profileicon/{x['id']}.png")
         os.remove(
             f"cdn/{settings.patch['json']}/img/profileicon/{x['id']}.jpg")
+    return
 
 
 def create_versioned_spell_icons(championfull, summoners):
@@ -220,6 +229,7 @@ def create_versioned_spell_icons(championfull, summoners):
     # cdragon_summoners = download.download_versioned_cdragon_summoner_spells(
     #     "default")
     # for x in (x for x in cdragon_summoners if x['name'] != ""):
+    return
 
 
 def get_cdragon_url(path):

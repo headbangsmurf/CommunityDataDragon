@@ -1,5 +1,4 @@
 import utils
-import json
 import download
 import settings
 import utils
@@ -184,7 +183,7 @@ def get_championfull_json(cdragon_language, ddragon_language):
             spell['leveltip'] = {}  # Add this
             try:
                 spell['maxrank'] = cdragon_ability_bin['mSpell']['mClientData']['mTooltipData']['mLists']['LevelUp']['levelCount']
-            except:
+            except Exception as ex:
                 spell['maxrank'] = 6  # Aphelios
             spell['cooldown'] = {}
             spell['cooldownBurn'] = ""
@@ -253,8 +252,8 @@ def get_championfull_json(cdragon_language, ddragon_language):
         try:
             champions['data'][champion]['allytips'] = ddragon_champions['data'][champion]['allytips']
             champions['data'][champion]['enemytips'] = ddragon_champions['data'][champion]['enemytips']
-        except:
-            print("ddragon failed")
+        except Exception as ex:
+            print("ddragon failed"+ex)
 
     utils.save_json(
         champions, f"cdn/{settings.patch['json']}/{ddragon_language}/data/championFull.json")

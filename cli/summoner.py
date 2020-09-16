@@ -45,8 +45,8 @@ def get_summoner_json(cdragon_language, ddragon_language):
                     "resource": ddragon_spell['resource'],
                 }
             })
-        except:
-            print("Failure on Summoner Spell: " + x['name'])
+        except Exception as ex:
+            print(ex + "Failure on Summoner Spell: " + x['name'])
             continue
 
     return summoners

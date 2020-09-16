@@ -1,4 +1,3 @@
-import download
 import utils
 import constants
 

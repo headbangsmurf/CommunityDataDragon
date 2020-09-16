@@ -1,5 +1,4 @@
 import os
-import json
 import utils
 import champion
 import item
@@ -10,9 +9,7 @@ import runesreforged
 import language
 import sticker
 import summoner
-import tarfile
 import images
-import version
 import settings
 
 import sys
@@ -66,9 +63,9 @@ def main():
     # directory = os.path.abspath(os.path.join(
     #     os.path.dirname(os.path.realpath(__file__)), "../.."))
 
-    # No new updated patch, die
-    # if os.path.exists(f"cdn/{settings.patch['json']}"):
-    #     sys.exit("No new patch exists")
+    # No new updated patch, die (Off for development)
+    if os.path.exists(f"cdn/{settings.patch['json']}") and False:
+        sys.exit("No new patch exists")
 
     if not os.path.exists(f"cdn/{settings.patch['json']}"):
         os.makedirs(f"cdn/{settings.patch['json']}")
@@ -111,6 +108,8 @@ def main():
         items = item.add_sprite_info(lang)
         utils.save_json(items, path+'/item.json')
 
+    os.remove(f"cdn/{settings.patch['json']}/spriter_output.json")
+    api.update_api()
     # with tarfile.open('cdn/dragontail-' + settings.patch + '.tgz', mode='w:gz') as archive:
     #     archive.add('cdn/'+settings.patch, arcname=settings.patch)
 

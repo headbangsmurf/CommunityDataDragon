@@ -1,6 +1,5 @@
 import argparse
 import version
-import sys
 
 args = []
 patch = {}
