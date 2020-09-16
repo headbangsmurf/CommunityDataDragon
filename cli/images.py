@@ -10,7 +10,7 @@ import settings
 
 def create_all_images(championfull, items, summoners):
     # Unversioned Images (/cdn/img)
-    if(settings.patch['cdragon'] == version.get_latest_cdragon_version() and False):
+    if(settings.patch['cdragon'] == version.get_latest_cdragon_version() and settings.production == True):
         create_unversioned_champion_splash(championfull)
         create_unversioned_champion_loading(championfull)
         create_unversioned_champion_tile(championfull)

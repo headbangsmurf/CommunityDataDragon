@@ -31,7 +31,7 @@ path = ""
 
 
 def main():
-    languages = {
+        languages = {
         'cs_CZ': 'cs_cz',
         'de_DE': 'de_de',
         'el_GR': 'el_gr',
@@ -64,7 +64,7 @@ def main():
     #     os.path.dirname(os.path.realpath(__file__)), "../.."))
 
     # No new updated patch, die (Off for development)
-    if os.path.exists(f"cdn/{settings.patch['json']}") and False:
+    if os.path.exists(f"cdn/{settings.patch['json']}") and settings.production == True:
         sys.exit("No new patch exists")
 
     if not os.path.exists(f"cdn/{settings.patch['json']}"):
@@ -77,10 +77,6 @@ def main():
         if not os.path.exists(path):
             os.mkdir(path)
 
-        # champions = champion.get_champion_json(languages[lang])
-        # utils.save_json(champions, path+'/champion.json')
-        # championfull = champion.get_championfull_json(languages[lang], lang)
-        # utils.save_json(championfull, path+'/championFull.json')
         championfull = champion.generate_champion_jsons(languages[lang], lang)
         items = item.get_item_json(languages[lang], lang)
         utils.save_json(items, path+"/item.json")

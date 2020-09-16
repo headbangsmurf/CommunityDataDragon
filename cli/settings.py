@@ -3,6 +3,7 @@ import version
 
 args = []
 patch = {}
+production = True
 
 
 def init():
